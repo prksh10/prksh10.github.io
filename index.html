@@ -7,7 +7,7 @@
   <title>Prakash Sharma · Sheraton Grand Bangalore</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #e1e1da;
@@ -157,13 +157,34 @@
       transition: background 0.25s var(--ease), transform 0.2s var(--ease), border-color 0.25s var(--ease);
     }
 
+    .sound-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 4.6rem;
+      height: 2.25rem;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      background: transparent;
+      color: var(--fg);
+      font-family: inherit;
+      font-size: 0.54rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0 0.62rem;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background 0.25s var(--ease), transform 0.2s var(--ease), border-color 0.25s var(--ease);
+    }
+
     .theme-toggle:hover {
       background: rgba(255, 45, 0, 0.08);
       transform: scale(1.06);
     }
 
-    html.theme-dark .theme-toggle:hover {
-      background: rgba(255, 74, 42, 0.12);
+    .sound-toggle:hover {
+      background: rgba(255, 45, 0, 0.08);
+      transform: translateY(-1px);
     }
 
     .theme-toggle svg {
@@ -171,7 +192,41 @@
       height: 1.1rem;
     }
 
+    html.theme-dark .theme-toggle {
+      color: #ffe786;
+      border-color: rgba(255, 231, 134, 0.95);
+      background: radial-gradient(circle at 50% 40%, rgba(255, 236, 166, 0.52), rgba(255, 215, 95, 0.08) 70%);
+      box-shadow:
+        0 0 0 1px rgba(255, 231, 134, 0.52),
+        0 0 20px rgba(255, 219, 105, 0.78),
+        0 0 42px rgba(255, 219, 105, 0.36);
+      animation: bulbSway 2.9s ease-in-out infinite;
+    }
+
+    html.theme-dark .theme-toggle:hover {
+      background: radial-gradient(circle at 50% 42%, rgba(255, 240, 178, 0.82), rgba(255, 222, 120, 0.16) 74%);
+      box-shadow:
+        0 0 0 1px rgba(255, 239, 174, 0.75),
+        0 0 22px rgba(255, 219, 105, 0.88),
+        0 0 56px rgba(255, 226, 133, 0.4);
+    }
+
+    html.theme-dark .sound-toggle {
+      color: #ffe786;
+      border-color: rgba(255, 231, 134, 0.72);
+      background: rgba(255, 224, 122, 0.08);
+    }
+
+    html.theme-dark .sound-toggle:hover {
+      background: rgba(255, 224, 122, 0.16);
+    }
+
     .theme-toggle:focus-visible {
+      outline: 2px solid var(--fg);
+      outline-offset: 3px;
+    }
+
+    .sound-toggle:focus-visible {
       outline: 2px solid var(--fg);
       outline-offset: 3px;
     }
@@ -492,6 +547,325 @@
       gap: 0.5rem;
     }
 
+    /* Projects */
+    .projects-shell {
+      margin-top: 2rem;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .projects-shell::before {
+      content: "";
+      position: absolute;
+      inset: 14% -10% auto;
+      height: min(430px, 52vw);
+      background:
+        radial-gradient(circle at 20% 35%, rgba(255, 197, 73, 0.25), transparent 47%),
+        radial-gradient(circle at 80% 40%, rgba(110, 202, 255, 0.2), transparent 50%);
+      z-index: -1;
+      filter: blur(12px);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .projects-title {
+      font-family: "Bebas Neue", "Anton", sans-serif;
+      font-size: clamp(2.4rem, 9vw, 5.6rem);
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.4rem;
+      text-align: center;
+    }
+
+    .projects-sub {
+      max-width: 36rem;
+      margin: 0 auto 2rem;
+      text-align: center;
+      text-transform: none;
+      letter-spacing: 0.07em;
+      line-height: 1.7;
+      font-size: 0.74rem;
+    }
+
+    .project-stack {
+      position: relative;
+      height: clamp(340px, 46vw, 510px);
+      max-width: 1050px;
+      margin: 0 auto;
+      perspective: 1200px;
+    }
+
+    .project-card {
+      position: absolute;
+      width: clamp(220px, 31vw, 340px);
+      min-height: clamp(280px, 33vw, 385px);
+      border: 1px solid var(--line-strong);
+      border-radius: 18px;
+      padding: 1.25rem 1.25rem 1.1rem;
+      overflow: hidden;
+      background: linear-gradient(160deg, rgba(255, 45, 0, 0.08), rgba(255, 45, 0, 0.02));
+      transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease), filter 0.35s var(--ease);
+      text-decoration: none;
+      transform-origin: bottom center;
+      top: 50%;
+      left: 50%;
+      will-change: transform;
+    }
+
+    .project-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.18) 50%, transparent 80%);
+      transform: translateX(-120%);
+      animation: cardSweep 5.5s linear infinite;
+      pointer-events: none;
+      opacity: 0.35;
+    }
+
+    .project-card:hover, .project-card:focus-visible, .project-card.is-picked {
+      transform: translate3d(var(--x), calc(var(--y) - 18px), 130px) rotate(var(--r)) scale(1.03) !important;
+      box-shadow: 0 18px 32px rgba(16, 16, 14, 0.18);
+      border-color: var(--fg);
+      outline: none;
+      filter: brightness(1.08);
+    }
+
+    .project-card h3 {
+      font-family: "Bebas Neue", "Anton", sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.05em;
+      margin-top: 1rem;
+    }
+
+    .project-card p {
+      text-transform: none;
+      letter-spacing: 0.06em;
+      font-size: 0.72rem;
+      line-height: 1.65;
+      margin-top: 0.7rem;
+      max-width: 28ch;
+    }
+
+    .project-card .tag {
+      display: inline-block;
+      padding: 0.28rem 0.52rem;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      font-size: 0.56rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    .project-card .orb {
+      width: 108px;
+      height: 108px;
+      border-radius: 50%;
+      margin-top: 0.45rem;
+      background:
+        radial-gradient(circle at 35% 30%, #ffe38c 0 30%, #ff6b00 55%, #a51c00 100%);
+      box-shadow: 0 0 22px rgba(255, 107, 0, 0.34);
+      animation: orbPulse 2.7s ease-in-out infinite;
+      position: relative;
+    }
+
+    .project-card .orb::after {
+      content: "";
+      position: absolute;
+      left: 44%;
+      top: 36%;
+      width: 0;
+      height: 0;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      border-left: 18px solid #111;
+      transform: translate(-40%, -45%);
+      opacity: 0.92;
+    }
+
+    .project-youtube {
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 209, 61, 0.22), transparent 44%),
+        linear-gradient(150deg, rgba(255, 45, 0, 0.22), rgba(32, 8, 4, 0.6));
+      --x: -50%;
+      --y: -54%;
+      --r: 0deg;
+      z-index: 2;
+    }
+
+    .project-left {
+      --x: -94%;
+      --y: -42%;
+      --r: -12deg;
+      background:
+        radial-gradient(circle at 16% 30%, rgba(68, 205, 255, 0.24), transparent 44%),
+        linear-gradient(150deg, rgba(0, 70, 83, 0.26), rgba(28, 11, 40, 0.56));
+      z-index: 1;
+    }
+
+    .project-right {
+      --x: -6%;
+      --y: -42%;
+      --r: 12deg;
+      background:
+        radial-gradient(circle at 80% 24%, rgba(255, 171, 255, 0.25), transparent 42%),
+        linear-gradient(150deg, rgba(98, 19, 86, 0.24), rgba(18, 9, 40, 0.6));
+      z-index: 1;
+    }
+
+    .project-card.project-left,
+    .project-card.project-right,
+    .project-card.project-youtube {
+      transform: translate3d(var(--x), var(--y), 0) rotate(var(--r));
+    }
+
+    .projects-sound-hint {
+      margin: 0 auto 1.4rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-align: center;
+      opacity: 0.82;
+    }
+
+    .projects-art {
+      position: absolute;
+      inset: auto 0 3% 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.88;
+    }
+
+    .harmonica-visual {
+      width: clamp(120px, 14vw, 180px);
+      height: clamp(40px, 5.4vw, 64px);
+      border-radius: 999px;
+      border: 1px solid rgba(255, 208, 112, 0.75);
+      background:
+        repeating-linear-gradient(90deg, rgba(255, 228, 160, 0.8) 0 8%, rgba(45, 28, 8, 0.32) 8% 12%),
+        linear-gradient(180deg, rgba(255, 172, 68, 0.56), rgba(88, 42, 6, 0.55));
+      box-shadow: 0 10px 16px rgba(16, 16, 14, 0.14);
+      animation: floatWide 5.8s ease-in-out infinite;
+    }
+
+    .books-visual {
+      width: clamp(100px, 12vw, 165px);
+      height: clamp(76px, 10vw, 126px);
+      position: relative;
+      animation: floatWide 6.2s ease-in-out infinite reverse;
+    }
+
+    .books-visual span {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 24%;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 12px rgba(16, 16, 14, 0.13);
+    }
+
+    .books-visual span:nth-child(1) {
+      top: 0;
+      background: linear-gradient(120deg, rgba(139, 80, 255, 0.5), rgba(41, 19, 68, 0.8));
+      transform: rotate(-4deg);
+    }
+
+    .books-visual span:nth-child(2) {
+      top: 34%;
+      background: linear-gradient(120deg, rgba(41, 165, 187, 0.45), rgba(5, 46, 53, 0.8));
+      transform: rotate(2deg);
+    }
+
+    .books-visual span:nth-child(3) {
+      top: 68%;
+      background: linear-gradient(120deg, rgba(255, 173, 75, 0.5), rgba(76, 37, 8, 0.78));
+      transform: rotate(-1deg);
+    }
+
+    html.theme-dark .project-card {
+      border-color: rgba(255, 189, 88, 0.4);
+      box-shadow: inset 0 0 0 1px rgba(255, 214, 121, 0.1);
+    }
+
+    html.theme-dark .project-card:hover, html.theme-dark .project-card:focus-visible {
+      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.48), inset 0 0 0 1px rgba(255, 239, 170, 0.2);
+    }
+
+    @keyframes cardFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
+    }
+
+    @keyframes cardSweep {
+      0% { transform: translateX(-120%); }
+      100% { transform: translateX(130%); }
+    }
+
+    @keyframes orbPulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(255, 107, 0, 0.3);
+      }
+      50% {
+        transform: scale(1.06);
+        box-shadow: 0 0 34px rgba(255, 107, 0, 0.48);
+      }
+    }
+
+    @keyframes bulbSway {
+      0%, 100% { transform: rotate(-4deg) translateY(0); }
+      50% { transform: rotate(4deg) translateY(-1px); }
+    }
+
+    @keyframes floatWide {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .scroll-float {
+      will-change: transform;
+      transition: transform 0.25s ease-out;
+    }
+
+    .roaming-cat {
+      position: fixed;
+      left: 0;
+      bottom: clamp(0.6rem, 2vh, 1.2rem);
+      z-index: 120;
+      width: clamp(72px, 9vw, 112px);
+      height: auto;
+      border: none;
+      background: none;
+      padding: 0;
+      cursor: pointer;
+      animation: catRoam 38s linear infinite alternate;
+      transform-origin: center;
+    }
+
+    .roaming-cat svg {
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 5px 6px rgba(0, 0, 0, 0.22));
+    }
+
+    .roaming-cat:focus-visible {
+      outline: 2px solid var(--fg);
+      outline-offset: 4px;
+      border-radius: 10px;
+    }
+
+    @keyframes catRoam {
+      0% { transform: translateX(0) scaleX(1); }
+      49% { transform: translateX(calc(100vw - 120px)) scaleX(1); }
+      50% { transform: translateX(calc(100vw - 120px)) scaleX(-1); }
+      100% { transform: translateX(0) scaleX(-1); }
+    }
+
     /* Footer */
     .site-footer {
       display: grid;
@@ -529,6 +903,106 @@
       .site-footer .right { text-align: center; }
     }
 
+    @media (max-width: 960px) {
+      .project-stack {
+        height: auto;
+        max-width: 560px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .project-left, .project-right, .project-youtube,
+      .project-card.project-left,
+      .project-card.project-right,
+      .project-card.project-youtube {
+        transform: none;
+      }
+      .project-card {
+        width: 100%;
+        min-height: 290px;
+        position: relative;
+        top: auto;
+        left: auto;
+      }
+      .project-card h3 {
+        font-size: 1.8rem;
+      }
+      .projects-art {
+        position: static;
+        margin-top: 1rem;
+      }
+    }
+
+    @media (max-width: 460px) {
+      body {
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+      }
+      .wrap {
+        padding: 0 1rem;
+      }
+      .section-title {
+        font-size: clamp(1.45rem, 10vw, 2.2rem);
+      }
+      .prose {
+        font-size: 0.74rem;
+      }
+      .projects-title {
+        font-size: clamp(2rem, 17vw, 3rem);
+      }
+    }
+
+    @media (min-width: 1600px) {
+      body {
+        font-size: 0.82rem;
+      }
+      .wrap {
+        max-width: 1680px;
+      }
+      .hero {
+        min-height: min(88vh, 860px);
+      }
+      .project-stack {
+        max-width: 1150px;
+      }
+      .project-card {
+        min-height: 370px;
+      }
+    }
+
+    @media (min-width: 2200px) {
+      body {
+        font-size: 0.95rem;
+      }
+      .wrap {
+        max-width: 2060px;
+      }
+      .section-title {
+        font-size: clamp(2.4rem, 3.4vw, 4.2rem);
+      }
+      .hero-title {
+        font-size: clamp(4rem, 8vw, 10rem);
+      }
+      .project-card {
+        min-height: 420px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .project-card,
+      .project-card::before,
+      .project-card .orb,
+      .theme-toggle,
+      .roaming-cat,
+      .harmonica-visual,
+      .books-visual {
+        animation: none !important;
+      }
+      .scroll-float {
+        transform: none !important;
+      }
+    }
+
     .sr-only {
       position: absolute;
       width: 1px;
@@ -550,6 +1024,7 @@
         <a href="#experience">Experience</a>
         <a href="#property">Sheraton Grand</a>
         <a href="#connect">Connect</a>
+        <a href="#projects">Projects</a>
       </nav>
 
       <div class="brand" aria-label="Name">
@@ -561,6 +1036,7 @@
               <path d="M9 21h6" />
             </svg>
           </button>
+          <button type="button" class="sound-toggle" id="soundToggle" aria-pressed="false" aria-label="Turn sound on" title="Sound off">Sound</button>
         </span>
         <span class="subtitle">Guest Service</span>
       </div>
@@ -677,6 +1153,45 @@
           </div>
         </div>
       </section>
+
+      <section id="projects" aria-labelledby="projects-title">
+        <p class="section-label">04 - Creative projects</p>
+        <div class="projects-shell">
+          <h2 id="projects-title" class="projects-title">My Projects</h2>
+          <p class="projects-sub">
+            Harmonica blues, creator experiments, and upcoming ideas. Hover or tap this section with sound enabled for a subtle blues preview.
+          </p>
+          <p class="projects-sound-hint">Use the Sound switch in the header to enable audio interactions.</p>
+          <div class="project-stack">
+            <article class="project-card project-left">
+              <span class="tag">Coming soon</span>
+              <h3>Blues Notes Journal</h3>
+              <p>
+                Personal riffs, practice methods, and harmonica progress stories in a compact visual diary.
+              </p>
+            </article>
+            <a class="project-card project-youtube" href="http://www.youtube.com/@prksh_10" target="_blank" rel="noopener noreferrer" aria-label="Open Prakash Sharma YouTube channel">
+              <span class="tag">Live now</span>
+              <div class="orb" aria-hidden="true"></div>
+              <h3>YouTube Channel</h3>
+              <p>
+                Follow my harmonica hobby journey, blues tutorials, and musical experiments. Click to watch.
+              </p>
+            </a>
+            <article class="project-card project-right">
+              <span class="tag">Coming soon</span>
+              <h3>Pocket Blues Lessons</h3>
+              <p>
+                Short and powerful lesson cards focused on bends, rhythm feel, and clean tone for beginners.
+              </p>
+            </article>
+          </div>
+          <div class="projects-art" aria-hidden="true">
+            <div class="harmonica-visual"></div>
+            <div class="books-visual"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="site-footer">
@@ -686,10 +1201,27 @@
         <span class="dot" aria-hidden="true"></span>
       </div>
       <div class="right">
-        <a href="#connect">Guest care</a>
+        <a href="#projects">My projects</a>
       </div>
     </footer>
   </div>
+
+  <button type="button" class="roaming-cat" id="roamingCat" aria-label="Play cat meow">
+    <svg viewBox="0 0 140 96" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <ellipse cx="72" cy="60" rx="44" ry="24" fill="#5C6278"/>
+      <ellipse cx="104" cy="50" rx="20" ry="18" fill="#6B728A"/>
+      <path d="M89 39 L95 22 L104 38" fill="#6B728A"/>
+      <path d="M106 37 L117 22 L120 41" fill="#6B728A"/>
+      <circle cx="99" cy="50" r="2.4" fill="#F8F8F8"/>
+      <circle cx="111" cy="50" r="2.4" fill="#F8F8F8"/>
+      <circle cx="99" cy="50" r="1.2" fill="#111"/>
+      <circle cx="111" cy="50" r="1.2" fill="#111"/>
+      <path d="M105 56 Q103 59 100 57" stroke="#FFD0B8" stroke-width="2" stroke-linecap="round"/>
+      <path d="M24 54 C10 52 4 44 7 31 C11 16 28 16 34 27" stroke="#5C6278" stroke-width="8" stroke-linecap="round"/>
+      <ellipse cx="52" cy="82" rx="8" ry="6" fill="#4B5166"/>
+      <ellipse cx="84" cy="82" rx="8" ry="6" fill="#4B5166"/>
+    </svg>
+  </button>
 
   <script>
     /**
@@ -704,6 +1236,7 @@
       phone: "+91-95742-98044",
       whatsappE164: "919574298044",
       linkedin: "https://www.linkedin.com/in/prksh10",
+      youtube: "http://www.youtube.com/@prksh_10",
       mapsUrl: "https://www.google.com/maps/search/Sheraton+Grand+Bangalore+Hotel+at+Brigade+Gateway",
       /** Your GitHub Pages URL (repo: prksh10/digital-card). After first deploy, QR works on the live site. */
       publicSiteUrl: "https://prksh10.github.io/digital-card"
@@ -722,8 +1255,84 @@
 
     (function init() {
       const THEME_KEY = "prakash-theme";
+      const SOUND_KEY = "prakash-sound";
       const root = document.documentElement;
       const themeToggle = document.getElementById("themeToggle");
+      const soundToggle = document.getElementById("soundToggle");
+      const projectsSection = document.getElementById("projects");
+      const projectCards = Array.from(document.querySelectorAll(".project-card"));
+      const roamingCat = document.getElementById("roamingCat");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const allowsMotion = !reduceMotion;
+      let audioCtx = null;
+      let soundOn = false;
+      let bluesTimer = null;
+      let bluesTick = 0;
+
+      function ensureAudio() {
+        if (!soundOn) return null;
+        if (!audioCtx) {
+          const AC = window.AudioContext || window.webkitAudioContext;
+          if (!AC) return null;
+          audioCtx = new AC();
+        }
+        if (audioCtx.state === "suspended") audioCtx.resume();
+        return audioCtx;
+      }
+
+      function setSoundUi() {
+        soundToggle.setAttribute("aria-pressed", soundOn ? "true" : "false");
+        soundToggle.setAttribute("aria-label", soundOn ? "Turn sound off" : "Turn sound on");
+        soundToggle.setAttribute("title", soundOn ? "Sound on" : "Sound off");
+        soundToggle.textContent = soundOn ? "Sound on" : "Sound off";
+      }
+
+      function stopBlues() {
+        if (bluesTimer) {
+          clearInterval(bluesTimer);
+          bluesTimer = null;
+        }
+      }
+
+      function playBluesNote() {
+        const ctx = ensureAudio();
+        if (!ctx) return;
+        const baseNotes = [220, 261.63, 293.66, 329.63, 392, 440];
+        const note = baseNotes[bluesTick % baseNotes.length] * (bluesTick % 5 === 0 ? 0.5 : 1);
+        bluesTick += 1;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = bluesTick % 2 ? "triangle" : "sine";
+        osc.frequency.setValueAtTime(note, ctx.currentTime);
+        gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.08, ctx.currentTime + 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 1.2);
+        osc.connect(gain).connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 1.24);
+      }
+
+      function startBlues() {
+        if (!soundOn || bluesTimer) return;
+        playBluesNote();
+        bluesTimer = setInterval(playBluesNote, 1300);
+      }
+
+      function playMeow() {
+        const ctx = ensureAudio();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(860, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(330, ctx.currentTime + 0.22);
+        gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.28);
+        osc.connect(gain).connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.3);
+      }
 
       function applyStoredTheme() {
         try {
@@ -743,6 +1352,12 @@
 
       applyStoredTheme();
       syncThemeToggle();
+      try {
+        soundOn = localStorage.getItem(SOUND_KEY) === "on";
+      } catch (e) {
+        soundOn = false;
+      }
+      setSoundUi();
 
       themeToggle.addEventListener("click", () => {
         root.classList.toggle("theme-dark");
@@ -751,6 +1366,16 @@
         } catch (e) {}
         syncThemeToggle();
         if (typeof window.refreshQrTheme === "function") window.refreshQrTheme();
+      });
+
+      soundToggle.addEventListener("click", () => {
+        soundOn = !soundOn;
+        try {
+          localStorage.setItem(SOUND_KEY, soundOn ? "on" : "off");
+        } catch (e) {}
+        if (!soundOn) stopBlues();
+        ensureAudio();
+        setSoundUi();
       });
 
       document.getElementById("year").textContent = new Date().getFullYear();
@@ -852,6 +1477,49 @@
         });
       });
 
+      /* Deck card pick animation */
+      projectCards.forEach((card) => {
+        card.addEventListener("pointerenter", () => card.classList.add("is-picked"));
+        card.addEventListener("pointerleave", () => card.classList.remove("is-picked"));
+        card.addEventListener("focus", () => card.classList.add("is-picked"));
+        card.addEventListener("blur", () => card.classList.remove("is-picked"));
+      });
+
+      /* Ambient blues in projects section */
+      if (projectsSection) {
+        projectsSection.addEventListener("pointerenter", startBlues);
+        projectsSection.addEventListener("pointerleave", stopBlues);
+        projectsSection.addEventListener("touchstart", () => {
+          startBlues();
+          setTimeout(stopBlues, 4200);
+        }, { passive: true });
+      }
+
+      /* Subtle premium scroll drift for copy */
+      const driftTargets = Array.from(document.querySelectorAll(".hero-kicker, .hero-title, .hero-sub, .section-label, .section-title, .prose, .projects-sub"));
+      driftTargets.forEach((el) => {
+        el.classList.add("scroll-float");
+      });
+      function updateDrift() {
+        if (!allowsMotion) return;
+        const y = window.scrollY || window.pageYOffset || 0;
+        driftTargets.forEach((el, idx) => {
+          const speed = idx % 3 === 0 ? 0.024 : idx % 3 === 1 ? 0.018 : 0.012;
+          const offset = Math.max(-18, Math.min(18, y * speed * 0.2));
+          el.style.transform = "translate3d(0," + offset.toFixed(2) + "px,0)";
+        });
+      }
+      updateDrift();
+      window.addEventListener("scroll", () => {
+        window.requestAnimationFrame(updateDrift);
+      }, { passive: true });
+
+      if (roamingCat) {
+        roamingCat.addEventListener("click", () => {
+          playMeow();
+        });
+      }
+
       /* Cursor dot (desktop) */
       const cursor = document.getElementById("cursor");
       let cx = window.innerWidth / 2;
@@ -868,7 +1536,7 @@
         raf = requestAnimationFrame(moveCursor);
       }
 
-      if (window.matchMedia("(pointer: fine)").matches) {
+      if (window.matchMedia("(pointer: fine)").matches && allowsMotion) {
         raf = requestAnimationFrame(moveCursor);
         window.addEventListener("mousemove", (e) => {
           mx = e.clientX;
