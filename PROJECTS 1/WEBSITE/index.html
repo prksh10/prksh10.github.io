@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Prakash Sharma — Guest Service Associate at Sheraton Grand Bangalore." />
+  <title>Prakash Sharma · Sheraton Grand Bangalore</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #e1e1da;
+      --fg: #ff2d00;
+      --mono: #ff2d00;
+      --line: rgba(255, 45, 0, 0.2);
+      --line-strong: rgba(255, 45, 0, 0.35);
+      --hero-frame: rgba(255, 45, 0, 0.12);
+      --qr-bg: E1E1DA;
+      --qr-fg: FF2D00;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    html.theme-dark {
+      color-scheme: dark;
+      --bg: #10100e;
+      --fg: #ff4a2a;
+      --mono: #ff4a2a;
+      --line: rgba(255, 74, 42, 0.22);
+      --line-strong: rgba(255, 74, 42, 0.45);
+      --hero-frame: rgba(255, 74, 42, 0.18);
+      --qr-bg: 10100E;
+      --qr-fg: FF4A2A;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    @media (pointer: coarse) {
+      body { cursor: auto; }
+      .cursor-dot { display: none; }
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.25s var(--ease), opacity 0.25s var(--ease);
+    }
+
+    a:hover, a:focus-visible {
+      border-bottom-color: currentColor;
+      outline: none;
+    }
+
+    .cursor-dot {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: var(--fg);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: multiply;
+      transition: transform 0.15s var(--ease), opacity 0.2s;
+    }
+
+    html.theme-dark .cursor-dot {
+      mix-blend-mode: normal;
+      box-shadow: 0 0 14px rgba(255, 74, 42, 0.45);
+    }
+
+    .cursor-dot.is-hidden { opacity: 0; }
+
+    .wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 clamp(1.25rem, 4vw, 3rem);
+      position: relative;
+    }
+
+    /* Header */
+    .site-header {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: start;
+      padding-top: clamp(1.5rem, 4vh, 2.5rem);
+      gap: 1rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .nav-primary {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-weight: 500;
+    }
+
+    .nav-primary a { display: inline-block; width: fit-content; }
+
+    .brand {
+      font-family: "Anton", Impact, sans-serif;
+      font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+      letter-spacing: -0.02em;
+      text-align: center;
+      line-height: 1;
+    }
+
+    .brand-name-row {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.25rem;
+      height: 2.25rem;
+      padding: 0;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--fg);
+      cursor: pointer;
+      vertical-align: middle;
+      transition: background 0.25s var(--ease), transform 0.2s var(--ease), border-color 0.25s var(--ease);
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255, 45, 0, 0.08);
+      transform: scale(1.06);
+    }
+
+    html.theme-dark .theme-toggle:hover {
+      background: rgba(255, 74, 42, 0.12);
+    }
+
+    .theme-toggle svg {
+      width: 1.1rem;
+      height: 1.1rem;
+    }
+
+    .theme-toggle:focus-visible {
+      outline: 2px solid var(--fg);
+      outline-offset: 3px;
+    }
+
+    .brand span.subtitle {
+      display: block;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      margin-top: 0.35rem;
+      font-weight: 400;
+    }
+
+    .header-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start;
+    }
+
+    .touch-vertical {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .touch-vertical svg {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      transform: rotate(-90deg);
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      padding: 0.5rem;
+      cursor: pointer;
+      color: var(--fg);
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: currentColor;
+    }
+
+    @media (max-width: 900px) {
+      .site-header {
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+      }
+      .brand { grid-column: 1 / -1; order: -1; }
+      .nav-primary { display: none; }
+      .nav-primary.is-open {
+        display: flex;
+        position: fixed;
+        inset: 0;
+        background: var(--bg);
+        z-index: 100;
+        padding: 5rem 2rem 2rem;
+        font-size: 1rem;
+        gap: 1rem;
+      }
+      .header-right { grid-column: 2; }
+      .menu-toggle { display: flex; z-index: 101; position: relative; }
+      .touch-vertical { display: none; }
+    }
+
+    /* Hero */
+    .hero {
+      min-height: min(85vh, 720px);
+      display: grid;
+      grid-template-columns: 1fr minmax(200px, 38%);
+      gap: clamp(1rem, 3vw, 2.5rem);
+      align-items: end;
+      padding-top: clamp(2rem, 8vh, 5rem);
+      padding-bottom: clamp(2rem, 6vh, 4rem);
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-kicker {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      margin-bottom: 1rem;
+      opacity: 0.95;
+    }
+
+    .hero-title {
+      font-family: "Anton", Impact, sans-serif;
+      font-size: clamp(2.75rem, 11vw, 7.5rem);
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      max-width: 12ch;
+    }
+
+    .hero-title .line { display: block; }
+
+    .hero-sub {
+      margin-top: 1.25rem;
+      max-width: 28rem;
+      line-height: 1.7;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: none;
+    }
+
+    .hero-visual {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      max-height: min(58vh, 520px);
+      align-self: end;
+    }
+
+    .hero-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: contrast(1.02) saturate(0.95);
+    }
+
+    .hero-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      box-shadow: inset 0 0 0 1px var(--hero-frame);
+      pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .hero-visual {
+        max-height: 280px;
+        order: -1;
+        aspect-ratio: 16 / 10;
+      }
+      .hero-title { max-width: none; }
+    }
+
+    /* Sections */
+    main section {
+      padding: clamp(3rem, 10vh, 5.5rem) 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.28em;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-family: "Anton", Impact, sans-serif;
+      font-size: clamp(1.75rem, 5vw, 3rem);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+      max-width: 14ch;
+    }
+
+    .prose {
+      max-width: 36rem;
+      line-height: 1.85;
+      letter-spacing: 0.06em;
+      text-transform: none;
+      font-size: 0.8rem;
+    }
+
+    .prose p + p { margin-top: 1rem; }
+
+    .connect-grid {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    @media (min-width: 560px) {
+      .connect-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .connect-card {
+      border: 1px solid var(--line-strong);
+      padding: 1.25rem 1.5rem;
+      transition: background 0.3s var(--ease), color 0.3s var(--ease);
+    }
+
+    .connect-card:hover, .connect-card:focus-within {
+      background: var(--fg);
+      color: var(--bg);
+    }
+
+    .connect-card h3 {
+      font-family: "Anton", sans-serif;
+      font-size: 1.25rem;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .connect-card p {
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: none;
+      opacity: 0.9;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+
+    .btn {
+      font-family: inherit;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.9rem 1.4rem;
+      border: 1px solid var(--fg);
+      background: transparent;
+      color: var(--fg);
+      cursor: pointer;
+      transition: background 0.3s var(--ease), color 0.3s var(--ease);
+    }
+
+    .btn:hover, .btn:focus-visible {
+      background: var(--fg);
+      color: var(--bg);
+      outline: none;
+    }
+
+    .btn--fill {
+      background: var(--fg);
+      color: var(--bg);
+    }
+
+    .btn--fill:hover, .btn--fill:focus-visible {
+      background: var(--bg);
+      color: var(--fg);
+    }
+
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .qr-panel {
+      margin-top: 2.5rem;
+      padding: 1.5rem;
+      border: 1px solid var(--line-strong);
+      display: grid;
+      gap: 1.25rem;
+      align-items: center;
+    }
+
+    @media (min-width: 600px) {
+      .qr-panel {
+        grid-template-columns: auto 1fr;
+      }
+    }
+
+    .qr-panel img {
+      width: 180px;
+      height: 180px;
+      display: block;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+
+    .qr-copy h3 {
+      font-family: "Anton", sans-serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    .qr-url {
+      word-break: break-all;
+      font-size: 0.68rem;
+      text-transform: none;
+      letter-spacing: 0.06em;
+      line-height: 1.5;
+      margin-bottom: 0.75rem;
+    }
+
+    .qr-hint {
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: none;
+      line-height: 1.6;
+      max-width: 28rem;
+    }
+
+    .qr-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    /* Footer */
+    .site-footer {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: end;
+      gap: 1rem;
+      padding: 2.5rem 0 2rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      border-top: 1px solid var(--line);
+    }
+
+    .site-footer .center {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .site-footer .dot {
+      width: 4px;
+      height: 4px;
+      background: var(--fg);
+      border-radius: 50%;
+    }
+
+    .site-footer .right { text-align: right; }
+
+    @media (max-width: 600px) {
+      .site-footer {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .site-footer .right { text-align: center; }
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor-dot" id="cursor" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header class="site-header">
+      <nav class="nav-primary" id="nav" aria-label="Primary">
+        <a href="#experience">Experience</a>
+        <a href="#property">Sheraton Grand</a>
+        <a href="#connect">Connect</a>
+      </nav>
+
+      <div class="brand" aria-label="Name">
+        <span class="brand-name-row">
+          <span>Prakash Sharma</span>
+          <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="false" aria-label="Switch to dark mode" title="Dark mode">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2a7 7 0 017 7c0 3-2 5.5-4 6.5V20a1 1 0 01-1 1H10a1 1 0 01-1-1v-4.5c-2-1-4-3.5-4-6.5a7 7 0 017-7z" />
+              <path d="M9 21h6" />
+            </svg>
+          </button>
+        </span>
+        <span class="subtitle">Guest Service</span>
+      </div>
+
+      <div class="header-right">
+        <button type="button" class="menu-toggle" id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
+          <span></span><span></span><span></span><span></span>
+        </button>
+        <a href="#connect" class="touch-vertical">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+            <circle cx="16" cy="16" r="14" />
+            <path d="M10 22 L22 10 M22 10 H14 M22 10 V18" />
+          </svg>
+          Get in touch
+        </a>
+      </div>
+    </header>
+
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-copy">
+        <p class="hero-kicker">Sheraton Grand Bangalore · Brigade Gateway</p>
+        <h1 id="hero-heading" class="hero-title">
+          <span class="line">Exceptional</span>
+          <span class="line">service.</span>
+          <span class="line">Unforgettable</span>
+          <span class="line">stays.</span>
+        </h1>
+        <p class="hero-sub">
+          I’m here to make your arrival smooth, your questions answered, and your time with us genuinely effortless—whether it’s your first visit or your tenth.
+        </p>
+      </div>
+      <div class="hero-visual">
+        <img
+          src="https://images.unsplash.com/photo-1615460549969-36fa19521a4f?w=900&q=80"
+          alt="Elegant hotel lobby with warm lighting"
+          width="900"
+          height="1125"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+    </section>
+
+    <main>
+      <section id="experience" aria-labelledby="exp-title">
+        <p class="section-label">01 — Experience</p>
+        <h2 id="exp-title" class="section-title">Hospitality with clarity &amp; care</h2>
+        <div class="prose">
+          <p>
+            As a Guest Service Associate, I focus on the details that matter: clear directions, thoughtful recommendations, and a calm presence when you need something sorted quickly.
+          </p>
+          <p>
+            My goal is simple—help you feel looked after from the moment you walk in, with the same polish you expect from a global brand and the warmth you deserve as our guest.
+          </p>
+        </div>
+      </section>
+
+      <section id="property" aria-labelledby="prop-title">
+        <p class="section-label">02 — The hotel</p>
+        <h2 id="prop-title" class="section-title">Sheraton Grand Bangalore</h2>
+        <div class="prose">
+          <p>
+            Located at Brigade Gateway, Sheraton Grand Bangalore blends contemporary comfort with attentive service—an ideal base whether you’re here for business, a celebration, or a well-earned break in the city.
+          </p>
+          <p>
+            If you need guidance on dining, local gems, or how to get the most from your stay, I’m happy to help.
+          </p>
+        </div>
+      </section>
+
+      <section id="connect" aria-labelledby="conn-title">
+        <p class="section-label">03 — Connect</p>
+        <h2 id="conn-title" class="section-title">Let’s stay in touch</h2>
+        <div class="prose">
+          <p>Reach me directly for follow-ups, feedback, or anything you’d like arranged during your stay.</p>
+        </div>
+
+        <div class="connect-grid">
+          <a class="connect-card" id="linkWa" href="#" target="_blank" rel="noopener noreferrer">
+            <h3>WhatsApp</h3>
+            <p>Quick message — same number as call.</p>
+          </a>
+          <a class="connect-card" id="linkLi" href="#" target="_blank" rel="noopener noreferrer">
+            <h3>LinkedIn</h3>
+            <p>linkedin.com/in/prksh10</p>
+          </a>
+          <a class="connect-card" id="linkMail" href="#">
+            <h3>Email</h3>
+            <p id="mailPreview">your.email@example.com</p>
+          </a>
+          <a class="connect-card" id="linkTel" href="#">
+            <h3>Call</h3>
+            <p id="telPreview">+91 · update number</p>
+          </a>
+        </div>
+
+        <div class="btn-row">
+          <button type="button" class="btn btn--fill" id="btnVcard">Save contact card</button>
+          <a class="btn" id="linkMaps" href="#" target="_blank" rel="noopener noreferrer">Open in maps</a>
+        </div>
+
+        <div class="qr-panel" aria-labelledby="qr-heading">
+          <img id="qrImg" width="180" height="180" alt="" decoding="async" />
+          <div class="qr-copy">
+            <h3 id="qr-heading">Scan to open this page</h3>
+            <p id="qrUrlText" class="qr-url"></p>
+            <p id="qrHint" class="qr-hint" hidden>
+              After you put this site on GitHub Pages, open the live link once—this QR will fill in automatically. Or set <strong>publicSiteUrl</strong> in the script config to your final URL.
+            </p>
+            <div class="qr-actions">
+              <button type="button" class="btn" id="btnCopyUrl">Copy link</button>
+              <a class="btn" id="qrOpen" href="#" target="_blank" rel="noopener noreferrer">Open QR image</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>Bangalore, India</div>
+      <div class="center">
+        <span>© <span id="year"></span> Prakash Sharma</span>
+        <span class="dot" aria-hidden="true"></span>
+      </div>
+      <div class="right">
+        <a href="#connect">Guest care</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    /**
+     * EDIT THIS — your real contact details (safe to share with guests).
+     * Replace placeholders before you send the link.
+     */
+    const CARD = {
+      fullName: "Prakash Sharma",
+      title: "Guest Service Associate",
+      org: "Sheraton Grand Bangalore Hotel at Brigade Gateway",
+      email: "your.email@example.com",
+      phone: "+91-95742-98044",
+      whatsappE164: "919574298044",
+      linkedin: "https://www.linkedin.com/in/prksh10",
+      mapsUrl: "https://www.google.com/maps/search/Sheraton+Grand+Bangalore+Hotel+at+Brigade+Gateway",
+      /** Your GitHub Pages URL (repo: prksh10/digital-card). After first deploy, QR works on the live site. */
+      publicSiteUrl: "https://prksh10.github.io/digital-card"
+    };
+
+    function resolvePublicUrl() {
+      const forced = (CARD.publicSiteUrl || "").trim();
+      if (forced) return forced.replace(/\/$/, "");
+      if (location.protocol === "file:") return "";
+      try {
+        return new URL(".", location.href).href.replace(/\/$/, "");
+      } catch (e) {
+        return "";
+      }
+    }
+
+    (function init() {
+      const THEME_KEY = "prakash-theme";
+      const root = document.documentElement;
+      const themeToggle = document.getElementById("themeToggle");
+
+      function applyStoredTheme() {
+        try {
+          const t = localStorage.getItem(THEME_KEY);
+          if (t === "dark") root.classList.add("theme-dark");
+          else if (t === "light") root.classList.remove("theme-dark");
+          else if (window.matchMedia("(prefers-color-scheme: dark)").matches) root.classList.add("theme-dark");
+        } catch (e) {}
+      }
+
+      function syncThemeToggle() {
+        const dark = root.classList.contains("theme-dark");
+        themeToggle.setAttribute("aria-pressed", dark ? "true" : "false");
+        themeToggle.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+        themeToggle.setAttribute("title", dark ? "Light mode" : "Dark mode");
+      }
+
+      applyStoredTheme();
+      syncThemeToggle();
+
+      themeToggle.addEventListener("click", () => {
+        root.classList.toggle("theme-dark");
+        try {
+          localStorage.setItem(THEME_KEY, root.classList.contains("theme-dark") ? "dark" : "light");
+        } catch (e) {}
+        syncThemeToggle();
+        if (typeof window.refreshQrTheme === "function") window.refreshQrTheme();
+      });
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      const wa = document.getElementById("linkWa");
+      const li = document.getElementById("linkLi");
+      const mail = document.getElementById("linkMail");
+      const tel = document.getElementById("linkTel");
+      const maps = document.getElementById("linkMaps");
+      const mailPrev = document.getElementById("mailPreview");
+      const telPrev = document.getElementById("telPreview");
+
+      wa.href = "https://wa.me/" + CARD.whatsappE164.replace(/\D/g, "");
+      li.href = CARD.linkedin;
+      mail.href = "mailto:" + encodeURIComponent(CARD.email) + "?subject=" + encodeURIComponent("Hello from a guest — Sheraton Grand Bangalore");
+      tel.href = "tel:" + CARD.phone.replace(/\s/g, "");
+      maps.href = CARD.mapsUrl;
+      mailPrev.textContent = CARD.email;
+      telPrev.textContent = CARD.phone;
+
+      /* QR code (points to this website) */
+      const qrImg = document.getElementById("qrImg");
+      const qrUrlText = document.getElementById("qrUrlText");
+      const qrHint = document.getElementById("qrHint");
+      const btnCopyUrl = document.getElementById("btnCopyUrl");
+      const qrOpen = document.getElementById("qrOpen");
+      const publicUrl = resolvePublicUrl();
+
+      function getQrPalette() {
+        const s = getComputedStyle(root);
+        const bg = (s.getPropertyValue("--qr-bg").trim() || "E1E1DA").replace(/['"]/g, "");
+        const fg = (s.getPropertyValue("--qr-fg").trim() || "FF2D00").replace(/['"]/g, "");
+        return { bg, fg };
+      }
+
+      function buildQrSrc(url) {
+        const { bg, fg } = getQrPalette();
+        return (
+          "https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=10&color=" +
+          fg +
+          "&bgcolor=" +
+          bg +
+          "&data=" +
+          encodeURIComponent(url)
+        );
+      }
+
+      window.refreshQrTheme = function () {
+        if (!publicUrl || qrImg.hidden) return;
+        const qrSrc = buildQrSrc(publicUrl);
+        qrImg.src = qrSrc;
+        qrOpen.href = qrSrc;
+      };
+
+      if (publicUrl) {
+        qrImg.hidden = false;
+        const qrSrc = buildQrSrc(publicUrl);
+        qrImg.src = qrSrc;
+        qrImg.alt = "QR code — opens " + publicUrl;
+        qrUrlText.textContent = publicUrl;
+        qrOpen.href = qrSrc;
+        qrHint.hidden = true;
+      } else {
+        qrImg.removeAttribute("src");
+        qrImg.alt = "";
+        qrImg.hidden = true;
+        qrUrlText.textContent = "Deploy on GitHub Pages, then open your live link—this QR will appear automatically.";
+        qrOpen.hidden = true;
+        btnCopyUrl.disabled = true;
+        qrHint.hidden = false;
+      }
+
+      btnCopyUrl.addEventListener("click", async () => {
+        const text = publicUrl || "";
+        if (!text) return;
+        try {
+          await navigator.clipboard.writeText(text);
+          btnCopyUrl.textContent = "Copied";
+          setTimeout(() => {
+            btnCopyUrl.textContent = "Copy link";
+          }, 2000);
+        } catch (err) {
+          prompt("Copy this link:", text);
+        }
+      });
+
+      /* Mobile nav */
+      const nav = document.getElementById("nav");
+      const menuBtn = document.getElementById("menuBtn");
+      menuBtn.addEventListener("click", () => {
+        const open = nav.classList.toggle("is-open");
+        menuBtn.setAttribute("aria-expanded", open);
+        menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      });
+      nav.querySelectorAll("a").forEach((a) => {
+        a.addEventListener("click", () => {
+          nav.classList.remove("is-open");
+          menuBtn.setAttribute("aria-expanded", "false");
+        });
+      });
+
+      /* Cursor dot (desktop) */
+      const cursor = document.getElementById("cursor");
+      let cx = window.innerWidth / 2;
+      let cy = window.innerHeight / 2;
+      let mx = cx;
+      let my = cy;
+      let raf;
+
+      function moveCursor() {
+        cx += (mx - cx) * 0.18;
+        cy += (my - cy) * 0.18;
+        cursor.style.left = cx + "px";
+        cursor.style.top = cy + "px";
+        raf = requestAnimationFrame(moveCursor);
+      }
+
+      if (window.matchMedia("(pointer: fine)").matches) {
+        raf = requestAnimationFrame(moveCursor);
+        window.addEventListener("mousemove", (e) => {
+          mx = e.clientX;
+          my = e.clientY;
+          cursor.classList.remove("is-hidden");
+        });
+        document.addEventListener("mouseleave", () => cursor.classList.add("is-hidden"));
+      }
+
+      /* vCard download */
+      document.getElementById("btnVcard").addEventListener("click", () => {
+        const lines = [
+          "BEGIN:VCARD",
+          "VERSION:3.0",
+          "FN:" + CARD.fullName,
+          "TITLE:" + CARD.title,
+          "ORG:" + CARD.org,
+          "TEL;TYPE=CELL:" + CARD.phone.replace(/\s/g, ""),
+          "EMAIL;TYPE=INTERNET:" + CARD.email,
+          "URL:" + CARD.linkedin,
+          "END:VCARD"
+        ];
+        const blob = new Blob([lines.join("\r\n")], { type: "text/vcard;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "prakash-sharma.vcf";
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+    })();
+  </script>
+</body>
+</html>
